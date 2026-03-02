@@ -24,6 +24,7 @@ function loadVideos() {
         .then((data) => {
 
             const btnAll = document.getElementById('btn-all')
+
             removeActive()
             btnAll.classList.add('active')
             displayVideos(data.videos)
@@ -41,6 +42,35 @@ function loadCatVideos(id) {
             clickedBtn.classList.add("active")
             displayVideos(data.category)
         })
+}
+
+function loadVideoDetails(video_id) {
+    const url = (`https://openapi.programming-hero.com/api/phero-tube/video/${video_id}`)
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayVideoDetl(data.video))
+
+}
+
+const displayVideoDetl = (video) => {
+    const videoDetails = document.getElementById('video_details').showModal();
+    const delContainer = document.getElementById('del-container')
+    delContainer.innerHTML = `
+    <div class="card bg-base-100   object-cover shadow-sm">
+  <figure>
+    <img
+      src="${video.thumbnail}"
+      alt="details" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">${video.title}</h2>
+    <p>${video.description}</p>
+    <div class="card-actions justify-end">
+      
+    </div>
+  </div>
+</div>
+    `
 }
 
 // category : "Music"
@@ -114,12 +144,16 @@ const displayVideos = (videos) => {
                         </div>
                     </div>
                 </div>
-                <div class="intro">
+               <div class="flex gap-2 ">
+                <div class="intro ">
                     <h2 class="text-xl font-bold">${video.title}</h2>
                     <p class="text-sm text-gray-400 flex gap-1">${video.authors[0].profile_name} <img class="w-4 h-4"
                             src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png" alt=""></p>
                     <p class="text-sm text-gray-400">${video.others.views} Views</p>
-                </div>
+                    </div>
+                    <button onclick="loadVideoDetails('${video.video_id}')" class="btn btn-soft btn-primary btn-sm mx-autotext-sm  ">Show Details</button>
+               </div>
+
             </div>
         </div>
     `;
@@ -130,3 +164,4 @@ const displayVideos = (videos) => {
 
 
 loadCategories();
+loadVideos()
