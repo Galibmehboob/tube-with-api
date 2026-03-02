@@ -18,8 +18,8 @@ function loadCategories() {
         )
 }
 
-function loadVideos() {
-    fetch(" https://openapi.programming-hero.com/api/phero-tube/videos")
+function loadVideos(searchEng = '') {
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchEng}`)
         .then((respon) => respon.json())
         .then((data) => {
 
@@ -147,8 +147,11 @@ const displayVideos = (videos) => {
                <div class="flex gap-2 ">
                 <div class="intro ">
                     <h2 class="text-xl font-bold">${video.title}</h2>
-                    <p class="text-sm text-gray-400 flex gap-1">${video.authors[0].profile_name} <img class="w-4 h-4"
-                            src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png" alt=""></p>
+                    <p class="text-sm text-gray-400 flex gap-1">
+                    ${video.authors[0].profile_name} 
+                    ${video.authors[0].verified == true ? `<img class="w-4 h-4"
+                            src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png" alt="">`: ""} 
+                    </p>
                     <p class="text-sm text-gray-400">${video.others.views} Views</p>
                     </div>
                     <button onclick="loadVideoDetails('${video.video_id}')" class="btn btn-soft btn-primary btn-sm mx-autotext-sm  ">Show Details</button>
@@ -162,6 +165,9 @@ const displayVideos = (videos) => {
     });
 };
 
-
+document.getElementById('searchEng').addEventListener('keyup', (event) => {
+    const input = event.target.value;
+    loadVideos(input)
+})
 loadCategories();
 loadVideos()
