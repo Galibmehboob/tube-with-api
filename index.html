@@ -4,12 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTube</title>
+    <title>PhTube</title>
+    <!-- DaisyUi -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .active {
+            background-color: #FF1F3D;
+            color: white;
+        }
+    </style>
 </head>
 
-<body>
+<body class="w-11/12 mx-auto mt-[40px]">
+    <header>
+        <nav class=" flex justify-between  border-b-2  border-gray-300 pb-7">
+            <div class="logo"><img src="./design/Logo.png" alt=""></div>
+            <div class="mid"><button class="btn bg-gray-200  relative right-16">Short By View</button></div>
+            <div class="blog"><button class="btn btn-error text-white">Blogs</button></div>
+        </nav>
+        <!-- <hr class=" mt-[20px] font-bold text-gray-300"> -->
+    </header>
+    <nav id="catagory" class="flex py-5 justify-center gap-5">
+        <div>
+            <button id="btn-all" onclick="loadVideos()" class="btn btn-sm ">All</button>
+        </div>
 
 
+    </nav>
+
+    <section id="videoContainer" class="mx-auto grid grid-cols-4 gap-3 h-full">
+
+
+    </section>
 
 
 
